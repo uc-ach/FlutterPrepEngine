@@ -104,6 +104,7 @@ class AppState with ChangeNotifier {
     stopButton = false;
     nextButton = false;
     first_click = false;
+    _setAns = false;
     question = "";
     notifyListeners();
   }
