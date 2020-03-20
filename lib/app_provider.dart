@@ -17,6 +17,7 @@ class AppState with ChangeNotifier {
   bool first_click = false;
   bool _isFetching = false;
   bool _showData = false;
+  bool _setAns = false;
   String testSession = "";
   String last_content_guid = "";
   String groupValue;
@@ -27,6 +28,7 @@ class AppState with ChangeNotifier {
   Map last_result = {"1": "-1", "2": "-1", "3": "-1"};
   var question;
   List list = [];
+  bool get setAns => _setAns;
   int get isStart => _isStart;
   String get totalTime => total_time;
   String get masteredItems => mastered_items;
@@ -79,6 +81,11 @@ class AppState with ChangeNotifier {
     notifyListeners();
   }
 
+  void avoidFirstClick() {
+    first_click = false;
+    notifyListeners();
+  }
+
   get getQuestion => question;
   void startQuiz() {
     _isStart = 1;
@@ -97,6 +104,7 @@ class AppState with ChangeNotifier {
     stopButton = false;
     nextButton = false;
     first_click = false;
+    _setAns = false;
     question = "";
     notifyListeners();
   }
@@ -172,16 +180,16 @@ class AppState with ChangeNotifier {
       "full_data": "1",
       "test_mode": "0"
     };
-    print("Test Session : " + testSession);
-    print("Content Guid : " + last_content_guid);
+    //print("Test Session : " + testSession);
+    //print("Content Guid : " + last_content_guid);
     var next_ques = await runApi("cat2.deliveryengine_quiz_item_next", where);
     question = next_ques['response'];
     last_content_guid = question['content_guid'];
     random_seq = question['random_seq'];
-    print("random : " + random_seq);
+    //print("random : " + random_seq);
     //print(question["result_points_2"]);
     for (var sName in question['answers']) {
-      print(sName);
+      //print(sName);
       if (sName['is_correct'] == "1") {
         correctAns = sName['seq_str'];
       }
@@ -210,13 +218,14 @@ class AppState with ChangeNotifier {
       last_result["3"] = question['result_points_0'];
     }
     //print(last_attempt);
-    print("last content guid : " + last_content_guid);
+    //print("last content guid : " + last_content_guid);
     getResult();
     startQuiz();
     //print(last_content_guid);
   }
 
   void setAnswer() async {
+    _setAns = true;
     var where = {
       "user_guid": "04hbA",
       "course_code": "03pOc",
@@ -228,9 +237,10 @@ class AppState with ChangeNotifier {
       "userans": groupValue,
       "timespent": "1"
     };
-    print(where);
+    //print(where);
     var result = await runApi("cat2.deliveryengine_quiz_answer_set", where);
-    print(result);
+    _setAns = false;
+    //print(result);
   }
 
   void getResult() async {
@@ -243,7 +253,7 @@ class AppState with ChangeNotifier {
     var result = await runApi("cat2.deliveryengine_quiz_result", where_res);
     var res = result['response']['04hbA'];
     mastered_items = res['mastered_items'];
-    print(result['response']['04hbA']);
+    //print(result['response']['04hbA']);
     mastered_items_percent = res['mastered_items_percent'];
     in_play = res['in_play'];
     in_play_percent = res['in_play_percent'];
