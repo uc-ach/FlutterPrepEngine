@@ -41,13 +41,7 @@ class MyHome extends StatelessWidget {
     final correctAns = appState.getCorrectAnswer;
     final groupValue = appState.groupValue;
     final lastResult = appState.lastResult;
-    final fetchStat = appState.fetchStat;
-    final masteredItems = appState.masteredItems;
-    final masteredItemsPerc = appState.masteredItemsPerc;
-    final inPlay = appState.inPlay;
-    final inPlayPerc = appState.inPlayPerc;
-    final pendingItems = appState.pendingItems;
-    final pendingItemsPerc = appState.pendingItemsPerc;
+    final setAns = appState.setAns;
     final showDraw = appState.showDraw;
     //print(lastResult);
     String color = "0xff168483";
@@ -82,6 +76,7 @@ class MyHome extends StatelessWidget {
             if (firstClick == false) {
               appState.showExplanation();
               appState.setClick();
+              //print(groupValue);
               if (groupValue == correctAns) {
                 final snackBar =
                     SnackBar(content: Text('Yayyy!! Correct Answer'));
@@ -91,10 +86,14 @@ class MyHome extends StatelessWidget {
                     SnackBar(content: Text('Oops!! Incorrect Answer'));
                 globalKey.currentState.showSnackBar(snackBar);
               }
-              appState.setAnswer();
+              if (setAns == false) {
+                print("no");
+                appState.setAnswer();
+              }
               print("First Click");
             } else {
               appState.getNextQuestion();
+              appState.avoidFirstClick();
               print("Second Click");
             }
           },
@@ -114,7 +113,7 @@ class MyHome extends StatelessWidget {
               }),
           actions: <Widget>[
             ...(lastResult).map((answer) {
-              print(answer);
+              //print(answer);
               return showLastAttempts(answer);
             }).toList(),
             new Visibility(
