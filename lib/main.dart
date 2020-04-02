@@ -98,7 +98,7 @@ class MyHome extends StatelessWidget {
         ),
       ),
       appBar: AppBar(
-          title: isStart > 0 ? Text("") : Text("PrepEngine"),
+          title: Text("PrepEngine"),
           backgroundColor: Color(int.parse(color)),
           leading: new Visibility(
               visible: stop_button,
