@@ -35,6 +35,15 @@ class showQuestion extends StatelessWidget {
               Question(
                 questions['question'],
               ),
+              explanation
+                  ? new Container(
+                      margin: const EdgeInsets.all(0.0),
+                      padding: const EdgeInsets.all(10.0),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.blueAccent)),
+                      child: Text("Incorrect"),
+                    )
+                  : Container(),
               ...(questions['answers'] as List<dynamic>).map((answer) {
                 return Answer(answer['answer'], answer['seq_str']);
               }).toList(),
@@ -53,34 +62,39 @@ class StartQuiz extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<AppState>(context);
-    return SingleChildScrollView(
-        child: Column(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        new Container(
-          padding: new EdgeInsets.only(top: 16.0),
-          child: new Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
+    final nextQues = appState.nextQues;
+    return nextQues
+        ? Center(
+            child: CircularProgressIndicator(),
+          )
+        : SingleChildScrollView(
+            child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              IconButton(
-                icon: Icon(Icons.play_circle_outline),
-                iconSize: 150.0,
-                onPressed: () {
-                  appState.getTestSessionId();
-                  //staQuiz();
-                },
-                //color: Colors.blue,
+              new Container(
+                padding: new EdgeInsets.only(top: 16.0),
+                child: new Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    IconButton(
+                      icon: Icon(Icons.play_circle_outline),
+                      iconSize: 150.0,
+                      onPressed: () {
+                        appState.getTestSessionId();
+                        //staQuiz();
+                      },
+                      //color: Colors.blue,
+                    ),
+                  ],
+                ),
               ),
+              new Text('Start Quiz',
+                  style: new TextStyle(
+                      fontSize: 35.0,
+                      fontFamily: 'Roboto',
+                      color: new Color(0xFF26C6DA))),
             ],
-          ),
-        ),
-        new Text('Start Quiz',
-            style: new TextStyle(
-                fontSize: 35.0,
-                fontFamily: 'Roboto',
-                color: new Color(0xFF26C6DA))),
-      ],
-    ));
+          ));
   }
 }

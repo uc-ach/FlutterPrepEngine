@@ -78,13 +78,9 @@ class MyHome extends StatelessWidget {
               appState.setClick();
               //print(groupValue);
               if (groupValue == correctAns) {
-                final snackBar =
-                    SnackBar(content: Text('Yayyy!! Correct Answer'));
-                globalKey.currentState.showSnackBar(snackBar);
+                print("Correct Answer");
               } else {
-                final snackBar =
-                    SnackBar(content: Text('Oops!! Incorrect Answer'));
-                globalKey.currentState.showSnackBar(snackBar);
+                print("Incorrect Answer");
               }
               if (setAns == false) {
                 print("no");
@@ -102,15 +98,18 @@ class MyHome extends StatelessWidget {
         ),
       ),
       appBar: AppBar(
-          title: Text("PrepEngine"),
+          title: isStart > 0 ? Text("") : Text("PrepEngine"),
           backgroundColor: Color(int.parse(color)),
-          leading: new IconButton(
-              icon: new Icon(Icons.dehaze),
-              onPressed: () {
-                appState.getResult();
-                //appState.getResultfetch();
-                globalKey.currentState.openDrawer();
-              }),
+          leading: new Visibility(
+              visible: stop_button,
+              child: new IconButton(
+                  icon: new Icon(Icons.dehaze),
+                  onPressed: () {
+                    appState.getResult();
+                    //appState.getResultfetch();
+                    globalKey.currentState.openDrawer();
+                  })),
+          //: Container(),
           actions: <Widget>[
             ...(lastResult).map((answer) {
               //print(answer);
@@ -137,12 +136,14 @@ class MyHome extends StatelessWidget {
               appState.setClick();
               //print(groupValue);
               if (groupValue == correctAns) {
-                final snackBar =
-                    SnackBar(content: Text('Yayyy!! Correct Answer'));
+                final snackBar = SnackBar(
+                    content: Text('Yayyy!! Correct Answer'),
+                    behavior: SnackBarBehavior.floating);
                 globalKey.currentState.showSnackBar(snackBar);
               } else {
-                final snackBar =
-                    SnackBar(content: Text('Oops!! Incorrect Answer'));
+                final snackBar = SnackBar(
+                    content: Text('Oops!! Incorrect Answer'),
+                    behavior: SnackBarBehavior.floating);
                 globalKey.currentState.showSnackBar(snackBar);
               }
               if (setAns == false) {
@@ -195,6 +196,14 @@ class showLastAttempts extends StatelessWidget {
 }
 
 class drawerData extends StatelessWidget {
+  String removeHour(String htmlText) {
+    RegExp exp = RegExp(r"hours|hour", multiLine: true, caseSensitive: true);
+    RegExp min =
+        RegExp(r"minutes|minute", multiLine: true, caseSensitive: true);
+    htmlText = htmlText.replaceAll(exp, 'h');
+    return htmlText.replaceAll(min, 'm');
+  }
+
   Widget build(BuildContext context) {
     final appState = Provider.of<AppState>(context);
     //final fetchStat = appState.fetchStat;
@@ -249,7 +258,7 @@ class drawerData extends StatelessWidget {
                   size: 40.0,
                 ),
                 Text("Time", style: new TextStyle(fontWeight: FontWeight.bold)),
-                Text(totalTime)
+                Text(removeHour(totalTime))
               ]),
             ),
           ),

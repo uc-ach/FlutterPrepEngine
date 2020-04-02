@@ -118,6 +118,8 @@ class AppState with ChangeNotifier {
   }
 
   void getTestSessionId() async {
+    _nextQuest = true;
+    notifyListeners();
     var awhere = {
       "course_code": "03pOc",
       "user_guid": "04hbA",
