@@ -19,6 +19,7 @@ class AppState with ChangeNotifier {
   bool _showData = false;
   bool _setAns = false;
   bool _nextQuest = false;
+  int checkAns = 0;
   String testSession = "";
   String last_content_guid = "";
   String groupValue;
@@ -47,6 +48,7 @@ class AppState with ChangeNotifier {
     return list;
   }
 
+  int get checkAnswer => checkAns;
   String get getGroupVal => groupValue;
   bool get isExplanation => explanation;
   bool get isNextButton => nextButton;
@@ -92,6 +94,7 @@ class AppState with ChangeNotifier {
   void startQuiz() {
     _isStart = 1;
     groupValue = "";
+    checkAns = 0;
     explanation = false;
     stopButton = true;
     nextButton = false;
@@ -102,6 +105,7 @@ class AppState with ChangeNotifier {
   void stopQuiz() {
     _isStart = 0;
     groupValue = "";
+    checkAns = 0;
     explanation = false;
     stopButton = false;
     nextButton = false;
@@ -232,6 +236,12 @@ class AppState with ChangeNotifier {
   }
 
   void setAnswer() async {
+    if (groupValue == correctAns) {
+      checkAns = 1;
+    } else {
+      checkAns = 2;
+    }
+    notifyListeners();
     _setAns = true;
     var where = {
       "user_guid": "04hbA",
