@@ -18,6 +18,7 @@ class AppState with ChangeNotifier {
   bool _isFetching = false;
   bool _showData = false;
   bool _setAns = false;
+  bool _nextQuest = false;
   String testSession = "";
   String last_content_guid = "";
   String groupValue;
@@ -30,6 +31,7 @@ class AppState with ChangeNotifier {
   List list = [];
   bool get setAns => _setAns;
   int get isStart => _isStart;
+  bool get nextQues => _nextQuest;
   String get totalTime => total_time;
   String get masteredItems => mastered_items;
   String get masteredItemsPerc => mastered_items_percent;
@@ -172,6 +174,8 @@ class AppState with ChangeNotifier {
   }
 
   void getNextQuestion() async {
+    _nextQuest = true;
+    nextButton = false;
     var where = {
       "user_guid": "04hbA",
       "course_code": "03pOc",
@@ -217,6 +221,7 @@ class AppState with ChangeNotifier {
       last_result["2"] = question['result_points_1'];
       last_result["3"] = question['result_points_0'];
     }
+    _nextQuest = false;
     //print(last_attempt);
     //print("last content guid : " + last_content_guid);
     getResult();

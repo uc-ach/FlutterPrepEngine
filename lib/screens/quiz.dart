@@ -13,8 +13,23 @@ class Quiz extends StatelessWidget {
     final isStart = appState.isStart;
     final explanation = appState.isExplanation;
     final questions = appState.getQuestion;
-    return isStart > 0
-        ? SingleChildScrollView(
+    final nextQues = appState.nextQues;
+    return isStart > 0 ? showQuestion() : StartQuiz();
+  }
+}
+
+class showQuestion extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final appState = Provider.of<AppState>(context);
+    final explanation = appState.isExplanation;
+    final questions = appState.getQuestion;
+    final nextQues = appState.nextQues;
+    return nextQues
+        ? Center(
+            child: CircularProgressIndicator(),
+          )
+        : SingleChildScrollView(
             child: Column(
             children: [
               Question(
@@ -30,8 +45,7 @@ class Quiz extends StatelessWidget {
                   //style: TextStyle(fontSize: 22.0))
                   : Container(),
             ],
-          ))
-        : StartQuiz();
+          ));
   }
 }
 
