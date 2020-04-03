@@ -54,10 +54,12 @@ class StartQuiz extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  IconButton(
-                    icon: Icon(Icons.play_circle_outline),
-                    iconSize: 150.0,
-                    onPressed: () {
+                  GestureDetector(
+                    child: Icon(Icons.play_circle_outline,
+                        size: 150, color: Colors.blueGrey),
+                    //iconSize: 150.0,
+                    //color: Colors.red,
+                    onTap: () {
                       Navigator.pushReplacementNamed(context, '/second_page');
                       appState.getTestSessionId();
                       //staQuiz();
@@ -67,11 +69,25 @@ class StartQuiz extends StatelessWidget {
                 ],
               ),
             ),
-            new Text('Start Quiz',
-                style: new TextStyle(
-                    fontSize: 35.0,
-                    fontFamily: 'Roboto',
-                    color: new Color(0xFF26C6DA))),
+            //new Text('Start Quiz',
+            //  style: new TextStyle(
+            //    fontSize: 35.0,
+            //  fontFamily: 'Roboto',
+            //color: new Color(0xFF26C6DA))),
+            Container(
+              padding: new EdgeInsets.only(top: 16.0),
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                        'Get an item correct each time in 3 consecutive attempts to "master" it. Your Goal is to master all items.',
+                        textAlign: TextAlign.center),
+                  ]),
+            ),
+            Container(
+              padding: new EdgeInsets.only(top: 10.0),
+              child: Text("You can stop at any time and continue later."),
+            )
           ],
         )));
   }
