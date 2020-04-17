@@ -52,39 +52,43 @@ class showQuestion extends StatelessWidget {
             child: CircularProgressIndicator(),
           )
         : SingleChildScrollView(
+            padding: const EdgeInsets.only(bottom: 90),
             child: Column(
-            children: [
-              Question(
-                questions['question'],
-              ),
-              explanation
-                  ? new Container(
-                      width: 200,
-                      //margin: const EdgeInsets.all(10.0),
-                      padding: const EdgeInsets.all(0.0),
-                      decoration: BoxDecoration(
-                          border: Border.all(color: bordercolor), color: color),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Icon(icon, color: textColor, size: 35.0),
-                            Text(ansText,
-                                style: new TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: textColor)),
-                          ]),
-                    )
-                  : Container(),
-              ...(questions['answers'] as List<dynamic>).map((answer) {
-                return Answer(answer['answer'], answer['seq_str'], explanation);
-              }).toList(),
-              explanation
-                  ? Html(
-                      data: "<b>Explanation : </b>" + questions['explanation'],
-                      defaultTextStyle: TextStyle(fontSize: 20.0))
-                  //style: TextStyle(fontSize: 22.0))
-                  : Container(),
-            ],
-          ));
+              children: [
+                Question(
+                  questions['question'],
+                ),
+                explanation
+                    ? new Container(
+                        width: 200,
+                        //margin: const EdgeInsets.all(10.0),
+                        padding: const EdgeInsets.all(0.0),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: bordercolor),
+                            color: color),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Icon(icon, color: textColor, size: 35.0),
+                              Text(ansText,
+                                  style: new TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: textColor)),
+                            ]),
+                      )
+                    : Container(),
+                ...(questions['answers'] as List<dynamic>).map((answer) {
+                  return Answer(
+                      answer['answer'], answer['seq_str'], explanation);
+                }).toList(),
+                explanation
+                    ? Html(
+                        data:
+                            "<b>Explanation : </b>" + questions['explanation'],
+                        defaultTextStyle: TextStyle(fontSize: 20.0))
+                    //style: TextStyle(fontSize: 22.0))
+                    : Container(),
+              ],
+            ));
   }
 }
