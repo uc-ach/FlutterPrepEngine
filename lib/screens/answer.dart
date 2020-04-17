@@ -6,7 +6,8 @@ import 'package:provider/provider.dart';
 class Answer extends StatelessWidget {
   final String answerText;
   final String id;
-  Answer(this.answerText, this.id);
+  final explanation;
+  Answer(this.answerText, this.id, this.explanation);
 
   String removeAllHtmlTags(String htmlText) {
     RegExp exp = RegExp(r"<[^>]*>", multiLine: true, caseSensitive: true);
@@ -37,8 +38,7 @@ class Answer extends StatelessWidget {
       groupValue: groupValue,
       value: id,
       onChanged: (id) {
-        print(id);
-        appState.answerCheck(id);
+        return explanation ? null : appState.answerCheck(id);
       },
     );
   }

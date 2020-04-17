@@ -76,7 +76,7 @@ class showQuestion extends StatelessWidget {
                     )
                   : Container(),
               ...(questions['answers'] as List<dynamic>).map((answer) {
-                return Answer(answer['answer'], answer['seq_str']);
+                return Answer(answer['answer'], answer['seq_str'], explanation);
               }).toList(),
               explanation
                   ? Html(
