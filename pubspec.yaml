@@ -14,7 +14,7 @@ description: A new Flutter project.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -27,10 +27,28 @@ dependencies:
   http: ^0.12.0+4
   sqflite: ^1.2.1
   connectivity: ^0.4.8+2
-  flutter_html: ^1.0.0-pre.1
+  flutter_svg: ^0.17.3+1
+  #flutter_html: ^1.0.0-pre.1
   #nested: ^0.0.4
   path_provider: ^1.6.5
   device_info: ^0.4.2+1
+  # Plugin for parsing html
+  html: ^0.14.0+2
+
+  # Plugins for parsing css
+  csslib: ^0.16.1
+  css_colors: ^1.0.2
+
+  # Plugins for rendering the <video> tag.
+  video_player: ^0.10.2+1
+  chewie: ^0.9.8
+
+  # Plugin for rendering the <iframe> tag.
+  webview_flutter: ^0.3.14+1
+
+  # Plugins for rendering the <audio> tag.
+  chewie_audio: ^1.0.0+1
+  #flutter_svg: ^0.14.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

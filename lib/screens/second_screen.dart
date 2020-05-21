@@ -55,17 +55,14 @@ class MyHome extends StatelessWidget {
               //print(groupValue);
 
               if (setAns == false) {
-                print("no");
                 appState.setAnswer();
               }
-              print("First Click");
             } else {
               appState.getNextQuestion();
               appState.avoidFirstClick();
-              print("Second Click");
             }
           },
-          tooltip: 'Increment',
+          tooltip: 'Next',
           child: new Icon(Icons.navigate_next),
         ),
       ),
@@ -90,8 +87,9 @@ class MyHome extends StatelessWidget {
               child: IconButton(
                 icon: Icon(Icons.stop),
                 onPressed: () {
-                  Navigator.pushReplacementNamed(context, '/');
-                  appState.stopQuiz();
+                  //Navigator.pushReplacementNamed(context, '/');
+                  //appState.stopQuiz();
+                  showAlertDialog(context, appState);
                 },
               ),
             )
@@ -100,20 +98,16 @@ class MyHome extends StatelessWidget {
         itemCount: null,
         physics: CustomScrollPhysics(),
         onPageChanged: (i) {
-          print("Hello Ajeet");
           if (groupValue != "") {
             if (firstClick == false) {
               appState.showExplanation();
               appState.setClick();
               if (setAns == false) {
-                print("no");
                 appState.setAnswer();
               }
-              print("First Click");
             } else {
               appState.getNextQuestion();
               appState.avoidFirstClick();
-              print("Second Click");
             }
           }
         },
@@ -124,6 +118,37 @@ class MyHome extends StatelessWidget {
       ),
     );
   }
+}
+
+showAlertDialog(BuildContext context, appState) {
+  // Create AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text("Exit"),
+    content: Text("Are you sure to exit?"),
+    actions: <Widget>[
+      FlatButton(
+        child: Text('Yes'),
+        onPressed: () {
+          Navigator.pushReplacementNamed(context, '/');
+          appState.stopQuiz();
+        },
+      ),
+      FlatButton(
+        child: Text('No'),
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+      )
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }
 
 class showLastAttempts extends StatelessWidget {
